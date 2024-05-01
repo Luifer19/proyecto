@@ -9,12 +9,7 @@
 
 <body>
     <main>
-        <div>
-            <img width="50"
-                src="https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202012/04/00120610001263____6__600x600.jpg" alt="">
-            Producto 1
-        </div>
-
+       
     </main>
     <script>
         function json(resultado) {
@@ -23,8 +18,13 @@
         function procesar(productos) {
             console.log(productos);
             productos.forEach(producto => {
+                const img=document.createElement("img")
+                img.src=producto.url
+                img.width="100"
+
                 const div = document.createElement("div")
                 div.innerText = producto.nombre
+                div.appendChild(img)
                 document.body.append(div)
             });
         }
