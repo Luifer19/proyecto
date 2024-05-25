@@ -9,7 +9,13 @@
 
 <body>
     <main>
-       
+      <form action="http://localhost:3000/productos" method="post">
+        <input placeholder="Nombre" type="text" name="nombre" id="nombre">
+        <input placeholder="Descripcion" type="text" name="descripcion" id="descripcion">
+        <input placeholder="Precio" type="number" name="precio" id="precio">
+        <input placeholder="Url" type="text" name="imagen" id="imagen">
+        <button type="submit">Enviar</button>
+      </form> 
     </main>
     <script>
         function json(resultado) {
