@@ -6,22 +6,24 @@ import { useEffect } from 'react'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [productos, setProductos] = useState([])
 
   function json(resultado) {
     return resultado.json()
   }
   function procesar(productos) {
-    console.log(productos);
-    productos.forEach(producto => {
-      const img = document.createElement("img")
-      img.src = producto.imagen
-      img.width = "100"
+    setProductos(productos)
+    // console.log(productos);
+    // productos.forEach(producto => {
+    //   const img = document.createElement("img")
+    //   img.src = producto.imagen
+    //   img.width = "100"
 
-      const div = document.createElement("div")
-      div.innerText = producto.nombre
-      div.appendChild(img)
-      document.body.append(div)
-    });
+    //   const div = document.createElement("div")
+    //   div.innerText = producto.nombre
+    //   div.appendChild(img)
+    //   document.body.append(div)
+    // });
   }
   useEffect(() => {
     fetch("http://localhost:3000/productos").then(json).then(procesar)
@@ -39,6 +41,23 @@ function App() {
           <input placeholder="Url" type="text" name="imagen" id="imagen" />
           <button type="submit">Enviar</button>
         </form>
+        {/* {JSON.stringify(productos)} */}
+        <div style={{display:"flex"}}>
+          {productos.map(producto => (
+            <>
+              <div>
+                <img src={producto.imagen} alt="" width={100} />
+                <p>{producto.nombre}</p>
+                <p>{producto.precio}</p>
+
+
+                {producto.descripcion}
+              </div>
+
+            </>
+
+          ))}
+        </div>
       </main>
       <script>
 
