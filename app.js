@@ -52,6 +52,24 @@ app.post('/productos', async(req, res) => {
   }
   
 })
+//ruta para eliminar productos 
+app.delete('/productos/:id', async(req, res) => {
+  try {
+    console.log(req.params.id)
+    const [results, fields] = await connection.query(
+       "DELETE FROM `productos` WHERE `productos`.`id` = ?;",[req.params.id]
+    );
+    res.json(results)
+    // res.redirect('http://
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({error:"algo salio mal"})
+  }
+
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -13,28 +13,46 @@ function App() {
   }
   function procesar(productos) {
     setProductos(productos)
-    // console.log(productos);
-    // productos.forEach(producto => {
-    //   const img = document.createElement("img")
-    //   img.src = producto.imagen
-    //   img.width = "100"
 
-    //   const div = document.createElement("div")
-    //   div.innerText = producto.nombre
-    //   div.appendChild(img)
-    //   document.body.append(div)
-    // });
   }
   useEffect(() => {
     fetch("http://localhost:3000/productos").then(json).then(procesar)
 
   }, [])
+  async function registrarProducto(evento) {
+    evento.preventDefault()
+    const form = new FormData(evento.target)
+    const producto = {
+      nombre: form.get("nombre"),
+      descripcion: form.get("descripcion"),
+      precio: form.get("precio"),
+      imagen: form.get("imagen")
+    }
+    await fetch("http://localhost:3000/productos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(producto)
+    })
+    fetch("http://localhost:3000/productos").then(json).then(procesar)
 
+    evento.target.reset()
+
+  }
+  async function eliminarProducto(id) {
+    console.log(id)
+    await fetch("http://localhost:3000/productos/" + id, {
+      method: "DELETE"
+    })
+    fetch("http://localhost:3000/productos").then(json).then(procesar)
+    
+  }
   return (
     <>
 
       <main>
-        <form action="http://localhost:3000/productos" method="post">
+        <form action="http://localhost:3000/productos" method="post" onSubmit={registrarProducto}>
           <input placeholder="Nombre" type="text" name="nombre" id="nombre" />
           <input placeholder="Descripcion" type="text" name="descripcion" id="descripcion" />
           <input placeholder="Precio" type="number" name="precio" id="precio" />
@@ -42,7 +60,7 @@ function App() {
           <button type="submit">Enviar</button>
         </form>
         {/* {JSON.stringify(productos)} */}
-        <div style={{display:"flex"}}>
+        <div style={{ display: "flex" }}>
           {productos.map(producto => (
             <>
               <div>
@@ -50,8 +68,9 @@ function App() {
                 <p>{producto.nombre}</p>
                 <p>{producto.precio}</p>
 
+                <p>{producto.descripcion}</p>
+                <button onClick={()=>eliminarProducto(producto.id)}>X</button>
 
-                {producto.descripcion}
               </div>
 
             </>
