@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 function App() {
   const [count, setCount] = useState(0)
   const [productos, setProductos] = useState([])
+  const [logueado, setLogueado] = useState(false)
 
   function json(resultado) {
     return resultado.json()
@@ -46,13 +47,45 @@ function App() {
       method: "DELETE"
     })
     fetch("http://localhost:3000/productos").then(json).then(procesar)
-    
+
   }
+  async function iniciarSesion(evento) {
+    evento.preventDefault()
+    const form = new FormData(evento.target)
+    const usuario = form.get("usuario")
+    const contraseña = form.get("contraseña")
+    console.log(usuario, contraseña)
+    const peticion = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ usuario, contraseña })
+    })
+    if (peticion.ok) {
+      setLogueado(true)
+    } else {
+      alert("usuario o contraseña incorrectos")
+    }
+  }
+
+  if (!logueado) {
+    return (
+      <main>
+        <form method="post" onSubmit={iniciarSesion}>
+          <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
+          <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
+          <button type="submit">Enviar</button>
+        </form>
+      </main>
+    )
+  }
+
   return (
     <>
 
       <main>
-        <form action="http://localhost:3000/productos" method="post" onSubmit={registrarProducto}>
+        <form method="post" onSubmit={registrarProducto}>
           <input placeholder="Nombre" type="text" name="nombre" id="nombre" />
           <input placeholder="Descripcion" type="text" name="descripcion" id="descripcion" />
           <input placeholder="Precio" type="number" name="precio" id="precio" />
@@ -69,7 +102,7 @@ function App() {
                 <p>{producto.precio}</p>
 
                 <p>{producto.descripcion}</p>
-                <button onClick={()=>eliminarProducto(producto.id)}>X</button>
+                <button onClick={() => eliminarProducto(producto.id)}>X</button>
 
               </div>
 

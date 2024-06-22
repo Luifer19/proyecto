@@ -70,6 +70,30 @@ app.delete('/productos/:id', async(req, res) => {
 
 })
 
+//ruta para iniciar sesion con usuario y contraseña 
+app.post('/login', async(req, res) => {
+  try {
+    console.log(req.body)
+    const [results, fields] = await connection.query(
+       "SELECT * FROM `usuarios` WHERE `usuario` = ? AND `contraseña` = ?;",
+       [req.body.usuario,req.body.contraseña]
+    );
+    if(results.length>0){
+      res.json({mensaje:"Bienvenido"})
+    }else{
+      res.status(401).json({error:"Usuario o contraseña incorrectos"})
+    }
+    // res.json(results)
+    // res.redirect('http://
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({error:"algo salio mal"})
+  }
+
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
