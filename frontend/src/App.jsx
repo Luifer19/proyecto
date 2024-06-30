@@ -8,6 +8,7 @@ function App() {
   const [count, setCount] = useState(0)
   const [productos, setProductos] = useState([])
   const [logueado, setLogueado] = useState(false)
+  const [verInicioSesion, setVerInicioSesion] = useState(false)
 
   function json(resultado) {
     return resultado.json()
@@ -69,14 +70,37 @@ function App() {
     }
   }
 
+
+  function ver() {
+    setVerInicioSesion(!verInicioSesion)
+  }
   if (!logueado) {
     return (
       <main>
-        <form method="post" onSubmit={iniciarSesion}>
-          <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
-          <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
-          <button type="submit">Enviar</button>
-        </form>
+        <button onClick={ver}>Inicio de sesion</button>
+        {verInicioSesion && (
+          <form method="post" onSubmit={iniciarSesion}>
+            <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
+            <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
+            <button type="submit">Enviar</button>
+          </form>
+        )}
+        <div style={{ display: "flex" }}>
+          {productos.map(producto => (
+            <>
+              <div>
+                <img src={producto.imagen} alt="" width={100} />
+                <p>{producto.nombre}</p>
+                <p>{producto.precio}</p>
+
+                <p>{producto.descripcion}</p>
+
+              </div>
+
+            </>
+
+          ))}
+        </div>
       </main>
     )
   }
