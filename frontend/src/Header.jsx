@@ -7,11 +7,9 @@ export const Header = () => {
             <nav className="nav">
                 <ul>
                     <li>HOME</li>
-                    <li>CHI SIAMO</li>
-                    <li>DOVE SIAMO</li>
-                    <li>PRODOTTI</li>
-                    <li>CONTATTI</li>
-                    <li>SHOP</li>
+                    <li>PRODUCTO</li>
+                    <li>CONTACTO</li>
+                    <li>COMPRAR</li>
                 </ul>
             </nav>
         </header>

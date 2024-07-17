@@ -1,6 +1,5 @@
 .banner {
-    background-image: url('coffee-banner.jpg');
-    /* Asegúrate de tener esta imagen en tu carpeta public */
+    background-image: url('coffee-banner.jpg'); /* Asegúrate de tener esta imagen en tu carpeta public */
     background-size: cover;
     background-position: center;
     color: white;
