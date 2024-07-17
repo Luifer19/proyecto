@@ -3,6 +3,11 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { useEffect } from 'react'
+import Header from './Header'
+import Banner from './Banner'
+import SectionInfo from './SectionInfo'
+import Products from './Products'
+import Footer from './Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -77,6 +82,11 @@ function App() {
   if (!logueado) {
     return (
       <main>
+       <Header/>
+       <Banner/>
+       <SectionInfo></SectionInfo>
+       <Products/>
+       <Footer/>
         <button onClick={ver}>Inicio de sesion</button>
         {verInicioSesion && (
           <form method="post" onSubmit={iniciarSesion}>
@@ -85,22 +95,7 @@ function App() {
             <button type="submit">Enviar</button>
           </form>
         )}
-        <div style={{ display: "flex" }}>
-          {productos.map(producto => (
-            <>
-              <div>
-                <img src={producto.imagen} alt="" width={100} />
-                <p>{producto.nombre}</p>
-                <p>{producto.precio}</p>
-
-                <p>{producto.descripcion}</p>
-
-              </div>
-
-            </>
-
-          ))}
-        </div>
+        
       </main>
     )
   }

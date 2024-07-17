@@ -1,0 +1,18 @@
+.footer {
+    background-color: #4e342e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.contact-info,
+.social-media {
+    margin: 10px 0;
+}
+
+.social-media a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
