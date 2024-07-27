@@ -11,7 +11,7 @@ export const SectionInfo = () => {
             <div className="extra-taste">
                 <h2></h2>
                 <p>Sumérgete en nuestro catálogo, donde cada producto cuenta su propia historia de origen, métodos de cultivo y notas de sabor.</p>
-                <button>LEGGI DI PIÙ</button>
+                <button>Catálogo</button>
             </div>
         </div>
     );

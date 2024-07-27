@@ -82,12 +82,14 @@ function App() {
   if (!logueado) {
     return (
       <main>
-       <Header/>
-       <Banner/>
-       <SectionInfo></SectionInfo>
-       <Products/>
-       <Footer/>
-        <button onClick={ver}>Inicio de sesion</button>
+        <Header ver={ver} />
+        {!verInicioSesion && (
+          <>
+            <Banner />
+            <SectionInfo></SectionInfo>
+            <Products />
+          </>
+        )}
         {verInicioSesion && (
           <form method="post" onSubmit={iniciarSesion}>
             <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
@@ -95,7 +97,11 @@ function App() {
             <button type="submit">Enviar</button>
           </form>
         )}
+
+        <Footer />
+
         
+
       </main>
     )
   }

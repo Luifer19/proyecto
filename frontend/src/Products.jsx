@@ -16,7 +16,9 @@ export const Products = () => {
     }, [])
 
     return (
-        <div className="products">
+        <div className="products"
+        id='productos'
+        >
             <h2>Productos</h2>
             <div className="product-list">
                     {productos.map(producto => (
