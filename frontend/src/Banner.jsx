@@ -4,7 +4,7 @@ import './Banner.css';
 export const Banner = () => {
     return (
         <div className="banner">
-            <h1>LAS PALMAS</h1>
+            <h1>Natural Coffee</h1>
             <p></p>
            
         </div>

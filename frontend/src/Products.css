@@ -29,3 +29,7 @@
 .product-item p {
     margin-bottom: 20px;
 }
+
+.product-item img {
+    border-radius: 8px;
+}
