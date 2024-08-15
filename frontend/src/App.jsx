@@ -63,6 +63,7 @@ function App() {
     console.log(usuario, contraseña)
     const peticion = await fetch("http://localhost:3000/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
