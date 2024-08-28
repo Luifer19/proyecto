@@ -12,9 +12,7 @@ export const Products = () => {
         setProductos(productos)
 
     }
-    useEffect(() => {
-        fetch("http://localhost:3000/productos").then(json).then(procesar)
-        // obtener los productos del carrito
+    function obtenerCarrito() {
         fetch("http://localhost:3000/carrito",
             {
                 credentials: 'include'
@@ -25,6 +23,12 @@ export const Products = () => {
             }
             setCarrito(resultado)
         })
+        
+    }
+    useEffect(() => {
+        fetch("http://localhost:3000/productos").then(json).then(procesar)
+        // obtener los productos del carrito
+        obtenerCarrito()
     }, [])
 
     return (
@@ -39,7 +43,7 @@ export const Products = () => {
                             <img src={producto.imagen} alt="" width={100} />
                             <h3>{producto.nombre}</h3>
                             <p>{producto.descripcion}</p>
-                            <p>{producto.precio}</p>
+                            <p>$ {producto.precio}</p>
                             {/* Cantidad de para agregar ala carrito */}
                             <input key={producto.id} id={producto.id} defaultValue={1}
                                 type="number" />
@@ -59,6 +63,7 @@ export const Products = () => {
                                     })
                                 }).then(json).then((resultado) => {
                                     console.log(resultado)
+                                    obtenerCarrito()
                                 })
                             }}>Agregar al carrito</button>
 
@@ -75,13 +80,49 @@ export const Products = () => {
             {/* Mostrar elementos del carrito id, nombre, precio y cantidad */}
             <h2>Carrito</h2>
             <div className="product-list">
-                {carrito.map(producto => (
+                {/* {carrito.map(producto => (
                     <div className="product-item">
                         <h3>{producto.nombre}</h3>
                         <p>{producto.precio}</p>
                         <p>{producto.cantidad}</p>
                     </div>
-                ))}
+                ))} */}
+                {/* Mostrar carrito en una tabla */}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            {/* subtotal */}
+                            <th>Subtotal</th>
+                            {/* opciones */}
+                            <th>Eliminar</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {carrito.map(producto => (
+                            <tr key={producto.id}> 
+                                <td>{producto.nombre}</td>
+                                <td>$ {producto.precio}</td>
+                                <td>{producto.cantidad}</td>
+                                <td>$ {producto.precio * producto.cantidad}</td>
+                                <td>
+                                    <button onClick={() => {
+                                        fetch("http://localhost:3000/carrito/" + producto.id, {
+                                            method: 'DELETE',
+                                            credentials: 'include'
+                                        }).then(json).then((resultado) => {
+                                            console.log(resultado)
+                                            obtenerCarrito()
+                                        })
+                                    }}>Eliminar</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
             </div>
         </div>
