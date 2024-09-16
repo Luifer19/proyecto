@@ -118,7 +118,7 @@ app.post('/login', async(req, res) => {
     );
     if(results.length>0){
       req.session.usuario=results[0]
-      res.json({mensaje:"Bienvenido"})
+      res.json({mensaje:"Bienvenido",rol:results[0].rol})  
     }else{
       res.status(401).json({error:"Usuario o contraseña incorrectos"})
     }
@@ -198,6 +198,26 @@ app.delete('/carrito/:id', async(req, res) => {
   }
 
 })
+
+//crear usuario con rol cliente
+app.post('/usuarios', async(req, res) => {
+  try {
+    console.log(req.body)
+    const [results, fields] = await connection.query(
+       "INSERT INTO `usuarios` (`id`, `usuario`, `contraseña`, `rol`) VALUES (NULL, ?, ?, 'CLIENTE');",
+       [req.body.usuario,req.body.contraseña]
+    );
+    res.json(results)
+    // res.redirect('http://
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({error:"algo salio mal"})
+  }
+
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

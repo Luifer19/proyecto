@@ -70,12 +70,38 @@ function App() {
       body: JSON.stringify({ usuario, contraseña })
     })
     if (peticion.ok) {
-      setLogueado(true)
+      const respuesta = await peticion.json()
+      if (respuesta.rol === "ADMINISTRADOR") {
+        setLogueado(true)
+        return
+        
+      } else {
+        ver()
+      }
     } else {
       alert("usuario o contraseña incorrectos")
     }
   }
 
+  async function registrarUsuario(evento) {
+    evento.preventDefault()
+    const form = new FormData(evento.target)
+    const usuario = form.get("usuario")
+    const contraseña = form.get("contraseña")
+    console.log(usuario, contraseña)
+    const peticion = await fetch("http://localhost:3000/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ usuario, contraseña })
+    })
+    if (peticion.ok) {
+      alert("usuario registrado")
+    } else {
+      alert("usuario o contraseña incorrectos")
+    }
+  }
 
   function ver() {
     setVerInicioSesion(!verInicioSesion)
@@ -92,11 +118,21 @@ function App() {
           </>
         )}
         {verInicioSesion && (
+          <>
+          <h2>Ingresar</h2>
           <form method="post" onSubmit={iniciarSesion}>
             <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
             <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
             <button type="submit">Enviar</button>
           </form>
+          <h2>Registrarse</h2>
+          {/* formulario para registrar usuario */}
+          <form method="post" onSubmit={registrarUsuario}>
+            <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
+            <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
+            <button type="submit">Enviar</button>
+          </form>
+          </>
         )}
 
         <Footer />
