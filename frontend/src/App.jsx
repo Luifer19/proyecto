@@ -74,7 +74,7 @@ function App() {
       if (respuesta.rol === "ADMINISTRADOR") {
         setLogueado(true)
         return
-        
+
       } else {
         ver()
       }
@@ -119,25 +119,25 @@ function App() {
         )}
         {verInicioSesion && (
           <>
-          <h2>Ingresar</h2>
-          <form method="post" onSubmit={iniciarSesion}>
-            <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
-            <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
-            <button type="submit">Enviar</button>
-          </form>
-          <h2>Registrarse</h2>
-          {/* formulario para registrar usuario */}
-          <form method="post" onSubmit={registrarUsuario}>
-            <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
-            <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
-            <button type="submit">Enviar</button>
-          </form>
+            <h2>Ingresar</h2>
+            <form method="post" onSubmit={iniciarSesion}>
+              <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
+              <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
+              <button type="submit">Enviar</button>
+            </form>
+            <h2>Registrarse</h2>
+            {/* formulario para registrar usuario */}
+            <form method="post" onSubmit={registrarUsuario}>
+              <input placeholder="Usuario" type="text" name="usuario" id="usuario" />
+              <input placeholder="Contraseña" type="text" name="contraseña" id="contraseña" />
+              <button type="submit">Enviar</button>
+            </form>
           </>
         )}
 
         <Footer />
 
-        
+
 
       </main>
     )
@@ -147,30 +147,62 @@ function App() {
     <>
 
       <main>
-        <form method="post" onSubmit={registrarProducto}>
-          <input placeholder="Nombre" type="text" name="nombre" id="nombre" />
-          <input placeholder="Descripcion" type="text" name="descripcion" id="descripcion" />
-          <input placeholder="Precio" type="number" name="precio" id="precio" />
-          <input placeholder="Url" type="text" name="imagen" id="imagen" />
-          <button type="submit">Enviar</button>
-        </form>
-        {/* {JSON.stringify(productos)} */}
-        <div style={{ display: "flex" }}>
-          {productos.map(producto => (
-            <>
-              <div>
-                <img src={producto.imagen} alt="" width={100} />
-                <p>{producto.nombre}</p>
-                <p>{producto.precio}</p>
+        <h1> Administración</h1>
+        <div className='grid'>
+          <div>
+            <h2>Registrar Producto</h2>
+            <form method="post" onSubmit={registrarProducto}>
+              <input placeholder="Nombre" type="text" name="nombre" id="nombre" />
+              <input placeholder="Descripcion" type="text" name="descripcion" id="descripcion" />
+              <input placeholder="Precio" type="number" name="precio" id="precio" />
+              <input placeholder="Url" type="text" name="imagen" id="imagen" />
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
 
-                <p>{producto.descripcion}</p>
-                <button onClick={() => eliminarProducto(producto.id)}>X</button>
+          {/* {JSON.stringify(productos)} */}
+          <div> <h2>Lista de productos</h2>
+            <div style={{ display: "flex" }}>
 
-              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripcion</th>
+                    <th>Acciones</th>
+                  </tr>
 
-            </>
+                </thead>
+                <tbody>
 
-          ))}
+
+                  {productos.map(producto => (
+                    <>
+                      <tr>
+                        <td>
+                          <img src={producto.imagen} alt="" width={100} />
+                        </td>
+
+                        <td>{producto.nombre}</td>
+                        <td>{producto.precio}</td>
+
+                        <td>{producto.descripcion}</td>
+                        <td>
+                          <button onClick={() => eliminarProducto(producto.id)}>X</button>
+                        </td>
+
+
+                      </tr>
+
+                    </>
+
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </main>
       <script>
