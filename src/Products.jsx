@@ -13,7 +13,7 @@ export const Products = () => {
 
     }
     function obtenerCarrito() {
-        fetch("http://localhost:3000/carrito",
+        fetch(import.meta.VITE_HOST_BACKEND + "/carrito",
             {
                 credentials: 'include'
             }
@@ -23,10 +23,10 @@ export const Products = () => {
             }
             setCarrito(resultado)
         })
-        
+
     }
     useEffect(() => {
-        fetch("http://localhost:3000/productos").then(json).then(procesar)
+        fetch(import.meta.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
         // obtener los productos del carrito
         obtenerCarrito()
     }, [])
@@ -51,7 +51,7 @@ export const Products = () => {
                             <button onClick={() => {
                                 const cantidad = document.getElementById(producto.id).value
 
-                                fetch("http://localhost:3000/carrito", {
+                                fetch(import.meta.VITE_HOST_BACKEND + "/carrito", {
                                     credentials: 'include',
                                     method: 'POST',
                                     headers: {
@@ -103,14 +103,14 @@ export const Products = () => {
                     </thead>
                     <tbody>
                         {carrito.map(producto => (
-                            <tr key={producto.id}> 
+                            <tr key={producto.id}>
                                 <td>{producto.nombre}</td>
                                 <td>$ {producto.precio}</td>
                                 <td>{producto.cantidad}</td>
                                 <td>$ {producto.precio * producto.cantidad}</td>
                                 <td>
                                     <button onClick={() => {
-                                        fetch("http://localhost:3000/carrito/" + producto.id, {
+                                        fetch(import.meta.VITE_HOST_BACKEND + "/carrito/" + producto.id, {
                                             method: 'DELETE',
                                             credentials: 'include'
                                         }).then(json).then((resultado) => {
