@@ -1,42 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda</title>
-</head>
-
-<body>
-    <main>
-      <form action="http://localhost:3000/productos" method="post">
-        <input placeholder="Nombre" type="text" name="nombre" id="nombre">
-        <input placeholder="Descripcion" type="text" name="descripcion" id="descripcion">
-        <input placeholder="Precio" type="number" name="precio" id="precio">
-        <input placeholder="Url" type="text" name="imagen" id="imagen">
-        <button type="submit">Enviar</button>
-      </form> 
-    </main>
-    <script>
-        function json(resultado) {
-            return resultado.json()
-        }
-        function procesar(productos) {
-            console.log(productos);
-            productos.forEach(producto => {
-                const img=document.createElement("img")
-                img.src=producto.imagen
-                img.width="100"
-
-                const div = document.createElement("div")
-                div.innerText = producto.nombre
-                div.appendChild(img)
-                document.body.append(div)
-            });
-        }
-        fetch("http://localhost:3000/productos").then(json).then(procesar)
-    </script>
-
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
