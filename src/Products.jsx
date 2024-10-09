@@ -13,7 +13,7 @@ export const Products = () => {
 
     }
     function obtenerCarrito() {
-        fetch(import.meta.VITE_HOST_BACKEND + "/carrito",
+        fetch(import.meta.env.VITE_HOST_BACKEND + "/carrito",
             {
                 credentials: 'include'
             }
@@ -26,7 +26,7 @@ export const Products = () => {
 
     }
     useEffect(() => {
-        fetch(import.meta.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
+        fetch(import.meta.env.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
         // obtener los productos del carrito
         obtenerCarrito()
     }, [])
@@ -51,7 +51,7 @@ export const Products = () => {
                             <button onClick={() => {
                                 const cantidad = document.getElementById(producto.id).value
 
-                                fetch(import.meta.VITE_HOST_BACKEND + "/carrito", {
+                                fetch(import.meta.env.VITE_HOST_BACKEND + "/carrito", {
                                     credentials: 'include',
                                     method: 'POST',
                                     headers: {
@@ -110,7 +110,7 @@ export const Products = () => {
                                 <td>$ {producto.precio * producto.cantidad}</td>
                                 <td>
                                     <button onClick={() => {
-                                        fetch(import.meta.VITE_HOST_BACKEND + "/carrito/" + producto.id, {
+                                        fetch(import.meta.env.VITE_HOST_BACKEND + "/carrito/" + producto.id, {
                                             method: 'DELETE',
                                             credentials: 'include'
                                         }).then(json).then((resultado) => {

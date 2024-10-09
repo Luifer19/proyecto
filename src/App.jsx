@@ -23,7 +23,7 @@ function App() {
 
   }
   useEffect(() => {
-    fetch(import.meta.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
+    fetch(import.meta.env.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
 
   }, [])
   async function registrarProducto(evento) {
@@ -35,24 +35,24 @@ function App() {
       precio: form.get("precio"),
       imagen: form.get("imagen")
     }
-    await fetch(import.meta.VITE_HOST_BACKEND + "/productos", {
+    await fetch(import.meta.env.VITE_HOST_BACKEND + "/productos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(producto)
     })
-    fetch(import.meta.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
+    fetch(import.meta.env.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
 
     evento.target.reset()
 
   }
   async function eliminarProducto(id) {
     console.log(id)
-    await fetch(import.meta.VITE_HOST_BACKEND + "/productos/" + id, {
+    await fetch(import.meta.env.VITE_HOST_BACKEND + "/productos/" + id, {
       method: "DELETE"
     })
-    fetch(import.meta.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
+    fetch(import.meta.env.VITE_HOST_BACKEND + "/productos").then(json).then(procesar)
 
   }
   async function iniciarSesion(evento) {
@@ -61,7 +61,7 @@ function App() {
     const usuario = form.get("usuario")
     const contraseña = form.get("contraseña")
     console.log(usuario, contraseña)
-    const peticion = await fetch(import.meta.VITE_HOST_BACKEND + "/login", {
+    const peticion = await fetch(import.meta.env.VITE_HOST_BACKEND + "/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -89,7 +89,7 @@ function App() {
     const usuario = form.get("usuario")
     const contraseña = form.get("contraseña")
     console.log(usuario, contraseña)
-    const peticion = await fetch(import.meta.VITE_HOST_BACKEND + "/usuarios", {
+    const peticion = await fetch(import.meta.env.VITE_HOST_BACKEND + "/usuarios", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
